@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "A gem for building mock objects for tests"
   spec.description   = "Summary to do later"
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/saganmateusz/factory_boy.git"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
