@@ -11,16 +11,25 @@ describe FactoryBoy do
     expect(built_user).to have_attributes(name: 'Mateusz', age: 26)
   end
   
-  it 'Properly registers default values' do 
-    FactoryBoy.define_factory(NotUser) do 
-      not_name 'foobar'
-      not_age 1
-    end
-    built_not_user = FactoryBoy.build(NotUser)
-    expect(built_not_user).to have_attributes(not_name: 'foobar', not_age: 1)
-    overriden_not_user = FactoryBoy.build(NotUser, not_name: 'Mateusz', not_age: 26)
-    expect(overriden_not_user).to have_attributes(not_name: 'Mateusz', not_age: 26)
+  it 'Properly registers default values' do
+    define_not_user_factory
+    expect(registry.registered_classes.keys).to include 'NotUser'
+    expect(registry.registered_classes['NotUser'].attribute_names.keys).to include 'not_name'
+    expect(registry.registered_classes['NotUser'].attribute_names['not_name']).to eq 'foobar1'
+    expect(registry.registered_classes['NotUser'].attribute_names.keys).to include 'not_age'
+    expect(registry.registered_classes['NotUser'].attribute_names['not_age']).to eq 2
   end
-  
-  
+
+  it 'Properly builds an object with default values' do
+    define_not_user_factory
+    overriden_user = FactoryBoy.build(NotUser)
+    expect(overriden_user).to have_attributes(not_name: 'foobar1', not_age: 2)
+  end
+
+  it 'Properly builds an object with overriden default values' do
+    define_not_user_factory
+    overriden_user = FactoryBoy.build(NotUser, not_name: 'Mateusz')
+    expect(overriden_user).to have_attributes(not_name: 'Mateusz', not_age: 2)
+  end
+
 end
